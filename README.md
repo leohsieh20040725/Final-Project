@@ -40,7 +40,17 @@
 <!-- ABOUT THE PROJECT -->
 # About the Project
 
-This project is part of the GEOL0069 AI4EO course at University College London. The goal is to detect flood-affected areas using Sentinel-2 optical satellite imagery by applying a widely used remote sensing index (NDWI) and a supervised machine learning algorithm (Random Forest). The project outputs include a binary classification map (flooded / non-flooded) and an analysis of computational/environmental impact.
+This project is part of the GEOL0069 AI4EO module at University College London. It focuses on detecting flood-affected areas using Sentinel-2 multispectral imagery. The project combines a classic remote sensing technique (NDWI) with a supervised machine learning algorithm (Random Forest) to classify land areas as flooded or non-flooded.
+
+## Description of the Problem
+
+Flooding is one of the most frequent and damaging natural disasters globally, causing widespread disruption, loss of life, and economic damage. In rapidly urbanizing regions or developing countries, flood risk is increasing due to poor drainage infrastructure and climate change.
+
+Traditional flood mapping methods are time-consuming, costly, and limited in scale. Satellite-based remote sensing provides a powerful alternative, enabling large-scale monitoring with frequent revisits and open access data.
+
+This project addresses the problem of detecting and classifying flooded areas using freely available Sentinel-2 multispectral imagery. By calculating the Normalized Difference Water Index (NDWI), water presence can be identified from space. To automate this process, a simple supervised learning algorithm (Random Forest) is trained to classify each pixel as flooded or non-flooded.
+
+The aim is to demonstrate a lightweight, scalable approach to flood detection using Earth observation data and AI tools. The result is a binary flood map that can be used for disaster response, planning, or climate resilience research.
 
 ---
 
