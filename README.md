@@ -2,11 +2,12 @@
 <a name="readme-top"></a>
 
 <!-- PROJECT BANNER -->
-![project_banner](https://your-image-link-here) <!-- Optional if you have a banner -->
+<!-- Optional if you have a banner -->
+<!-- ![project_banner](https://your-image-link-here) -->
 
-<h1 align="center">Flooded Area Classification using Sentinel-2 and NDWI</h1>
+<h1 align="center">Flooded Area Classification using Sentinel-2 and NDWI + K-means</h1>
 <p align="center">
-  Using Random Forest classification and Sentinel-2 imagery to detect flood-affected land.
+  Using unsupervised learning and Sentinel-2 imagery to detect inland water bodies in flood-prone and dry regions.
 </p>
 <br />
 
@@ -18,8 +19,8 @@
       <ul>
         <li><a href="#background">Background</a></li>
         <li><a href="#the-sentinel-2-satellite">The SENTINEL-2 Satellite</a></li>
-        <li><a href="#remote-sensing-method---ndwi">Remote Sensing Method – NDWI</a></li>
-        <li><a href="#machine-learning-method---random-forest">Machine Learning Method – Random Forest</a></li>
+        <li><a href="#remote-sensing-methods">Remote Sensing Methods</a></li>
+        <li><a href="#machine-learning-method---k-means">Machine Learning Method – K-means</a></li>
       </ul>
     </li>
     <li><a href="#getting-started">Getting Started</a>
@@ -37,118 +38,201 @@
 
 ---
 
-<!-- ABOUT THE PROJECT -->
-# About the Project
+# 📌 About the Project
 
-This project is part of the GEOL0069 AI4EO module at University College London. It focuses on detecting flood-affected areas using Sentinel-2 multispectral imagery. The project combines a classic remote sensing technique (NDWI) with a supervised machine learning algorithm (Random Forest) to classify land areas as flooded or non-flooded.
+This project is part of the GEOL0069 AI4EO module at University College London and focuses on the detection of surface water and flood presence using Sentinel-2 satellite imagery and unsupervised machine learning techniques. The goal is to detect and classify flooded vs. non-flooded areas in two hydrologically distinct regions:
 
-## Description of the Problem
+- **Normalized Difference Water Index (NDWI)**
+- **Modified NDWI (MNDWI)**
+- **K-means clustering**
 
-Flooding is one of the most frequent and damaging natural disasters globally, causing widespread disruption, loss of life, and economic damage. In rapidly urbanizing regions or developing countries, flood risk is increasing due to poor drainage infrastructure and climate change.
+It compares the performance of these techniques in two contrasting regions:
 
-Traditional flood mapping methods are time-consuming, costly, and limited in scale. Satellite-based remote sensing provides a powerful alternative, enabling large-scale monitoring with frequent revisits and open access data.
+- 🌍 **Khulna, Bangladesh** — a deltaic area prone to seasonal flooding  
+- 🌏 **Mandalay Region, Myanmar** — a dry control region with minimal water change
 
-This project addresses the problem of detecting and classifying flooded areas using freely available Sentinel-2 multispectral imagery. By calculating the Normalized Difference Water Index (NDWI), water presence can be identified from space. To automate this process, a simple supervised learning algorithm (Random Forest) is trained to classify each pixel as flooded or non-flooded.
+The notebook evaluates how each approach performs in flood-prone vs. dry conditions, using open-access **Sentinel-2** data.
+The project leverages the Normalized Difference Water Index (NDWI) and Modified NDWI (MNDWI) as remote sensing indicators, and compares these with machine learning outputs from K-means clustering using various Sentinel-2 band combinations.
 
-The aim is to demonstrate a lightweight, scalable approach to flood detection using Earth observation data and AI tools. The result is a binary flood map that can be used for disaster response, planning, or climate resilience research.
+Through this comparison, the project aims to evaluate the performance and transferability of water detection algorithms under different hydrological conditions. Emphasis is also placed on environmental efficiency by evaluating compute-related emissions using the codecarbon tool.
 
----
 
-## Background
-
-Floods are one of the most destructive natural disasters globally, affecting millions of people every year. Early and accurate detection of flood extent using satellite imagery is a vital tool for disaster response, infrastructure planning, and humanitarian relief.
-
-Compared to manual surveying, remote sensing allows for rapid, scalable, and low-cost flood detection. By combining multispectral satellite data with machine learning, this project demonstrates how flooded areas can be automatically identified with minimal manual input.
 
 ---
 
-## The SENTINEL-2 Satellite
+## 💡 Description of the Problem
 
-SENTINEL-2 is a European Earth observation mission with two satellites (S2A & S2B), designed to provide high-resolution optical imagery for land monitoring. Each carries the Multi-Spectral Instrument (MSI), capturing 13 spectral bands:
+Flooding is one of the most frequent and devastating climate-related hazards, impacting more than 1.5 billion people globally between 2000 and 2019 (UNDRR, 2022). Accurate flood detection is critical for disaster response, infrastructure protection, and humanitarian relief.
 
-- 4 bands at 10m (visible and NIR)
-- 6 bands at 20m (including SWIR)
-- 3 bands at 60m (atmospheric correction)
+Traditional flood mapping relies on ground surveys or drone-based assessments, which are costly, time-intensive, and geographically limited. Satellite remote sensing provides a scalable alternative for flood detection, enabling large-area and near-real-time analysis.
 
-These bands make Sentinel-2 suitable for applications such as vegetation monitoring, water detection, and land use classification.
+This project addresses the problem of water detection across diverse environments, using freely available Sentinel-2 imagery and basic machine learning tools. It contrasts flooded and dry regions to explore:
+
+- How well NDWI and MNDWI can detect water presence across different land types.
+- Whether K-means clustering can match or improve on classic water indices.
+- How band combinations affect water detection under varying spectral noise, such as urban shadows or sediment-laden rivers.
+
+By applying both visual and quantitative analysis, this project aims to provide a robust comparison framework and demonstrate a lightweight, replicable approach to water mapping in data-scarce settings.
+
 
 ---
 
-## Remote Sensing Method – NDWI
+## 🌐 Background
 
-To extract water bodies, the Normalized Difference Water Index (NDWI) is used:
+Remote sensing is a powerful tool for environmental monitoring, offering wide-scale and repeated coverage without the need for field visits. In the context of flood and water detection, the Normalized Difference Water Index (NDWI) has long been used to highlight surface water using Green (B03) and NIR (B08) reflectance.
+
+However, NDWI has notable limitations:
+
+- It struggles in built-up or turbid areas due to spectral confusion.
+
+- It can misclassify sediment-heavy floodwaters as land.
+
+To address this, alternative indices like Modified NDWI (MNDWI) using Green (B03) and SWIR1 (B11) have been proposed, which suppress urban and vegetative reflectance and enhance water contrast (Xu, 2006).
+
+This project builds on these foundations by:
+
+- Comparing NDWI and MNDWI maps.
+
+- Applying K-means clustering on multiple band pairs (NDWI, SWI, MNDWI).
+
+- Analyzing how performance varies between the Khulna floodplain and Mandalay dryland.
+
+The analysis demonstrates how simple unsupervised models, when paired with thoughtful band selection, can support efficient flood mapping even in challenging environments.
 
 
-- Green = Band 3 (560 nm)
-- NIR = Band 8 (842 nm)
-
-NDWI emphasizes water features while suppressing soil and vegetation. Pixels with higher NDWI values typically represent water surfaces, especially useful for flood detection after major rainfall events.
 
 ---
 
-## Machine Learning Method – Random Forest
+## 🛰 The SENTINEL-2 Satellite
 
-To automate classification, we use a **Random Forest** classifier. It is chosen for its:
-- Simplicity
-- Fast training
-- High accuracy on small datasets
+Sentinel-2 provides global optical imagery at 10–60m resolution across 13 bands. For this project, we used:
+
+| Band | Name         | Wavelength | Use                     |
+|------|--------------|------------|--------------------------|
+| B03  | Green        | 560 nm     | Water detection (NDWI)   |
+| B08  | NIR          | 842 nm     | NDWI pairing             |
+| B11  | SWIR1        | 1610 nm    | MNDWI + SWI methods      |
+| B05  | Red Edge     | 705 nm     | SWI index for ML         |
+
+These combinations are used to detect water presence, suppress noise from vegetation or built-up areas, and compare seasonal change.
+
+![ee0a8264d27979fc5bd6f5bf1394407](https://github.com/user-attachments/assets/23f39a22-c7eb-485d-b23d-4122e22242a0)
+
+
+
+
+
+
+
+
+---
+
+## 🛰 Remote Sensing Methods
+
+### NDWI (McFeeters, 1996)
+
+\[
+NDWI = \frac{Green - NIR}{Green + NIR}
+\]
+
+Highlights water bodies, but can be confused by urban or shadowed regions.
+
+### MNDWI (Xu, 2006)
+
+\[
+MNDWI = \frac{Green - SWIR1}{Green + SWIR1 + \epsilon}
+\]
+
+Improves accuracy in built-up or turbid areas by replacing NIR with SWIR.
+![9899d54a56ca45641a94e5328da6317](https://github.com/user-attachments/assets/45b9ab25-bdb0-4d40-9510-17ae353bc9f5)
+
+
+
+
+---
+
+## 🤖 Machine Learning Method – K-means
+
+**K-means clustering** is used to classify each pixel based on spectral similarity — no labels or ground truth are required.
+
+We apply it to:
+- NDWI bands (B03 + B08)
+- MNDWI bands (B03 + B11)
+- SWI bands (B05 + B11)
+
+It helps compare whether machine learning can match or outperform traditional NDWI detection.
 
 ### Workflow:
-1. Calculate NDWI from Sentinel-2 imagery
-2. Create labeled training samples (flooded/non-flooded)
-3. Train Random Forest on NDWI data
-4. Apply model to full scene
-5. Generate binary flood classification map
+1. Load Sentinel-2 bands
+2. Calculate NDWI / MNDWI
+3. Apply threshold to create binary water mask
+4. Run K-means on stacked bands (2D array)
+5. Visualize and compare outputs
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
 
-# Getting Started
+# 🚀 Getting Started
 
 ### Requirements:
-- Python 3.x
-- `rasterio`, `numpy`, `scikit-learn`, `matplotlib`, `pandas`
-- Jupyter or Google Colab
+- Python 3.8+
+- Jupyter Notebook or Google Colab
+- `rasterio`, `scikit-learn`, `numpy`, `matplotlib`, `codecarbon`
 
-### Instructions:
-1. Clone this repo and open the `flood_classification.ipynb` notebook
-2. Modify file paths if needed
-3. Run all cells in order
-4. Visual outputs will include NDWI images and classification maps
-
----
-
-## Datasets Used
-
-Sentinel-2 L2A imagery was used (surface reflectance). Pre- and post-flood scenes were selected from a recent flood-prone region (e.g. Italy, Bangladesh, UK).
-
-Images were downloaded from the [Copernicus Dataspace Browser](https://dataspace.copernicus.eu/).
+### How to Run:
+1. Clone the repo
+2. Upload Sentinel-2 `.SAFE` bands to Google Drive
+3. Open the `.ipynb` file and change the file paths
+4. Run cells in order — NDWI masks, K-means classifications, and comparison charts will be shown
 
 ---
 
-# Environmental Cost
+## 📦 Datasets Used
 
-The model was trained on a CPU with no GPU acceleration.
+**Sentinel-2 L2A** images were downloaded from the [Copernicus Dataspace Browser](https://dataspace.copernicus.eu/).
 
-| Component        | Details                          |
-|------------------|----------------------------------|
-| Model            | Random Forest (100 trees)        |
-| Training time    | ~15 seconds                      |
-| Platform         | Local CPU (Intel i5)             |
-| CO₂ estimate     | ~0.005 kg                        |
+| Region            | Date Range   | Season         |
+|------------------|--------------|----------------|
+| Khulna, Bangladesh | March 2025   | Flood season   |
+| Mandalay, Myanmar | March 2025   | Dry season     |
 
-Tools like [CodeCarbon](https://mlco2.github.io/codecarbon/) can be used for more detailed reporting.
+Only bands B03, B05, B08, and B11 were used. Images were downsampled for memory efficiency.
 
 ---
 
-# Video Overview
+# ♻️ Environmental Cost
+
+This project uses lightweight computation. No GPU, no training, just CPU-based inference + K-means.
+
+Emissions were logged using `codecarbon`.
+
+| Region     | Emissions |
+|------------|------------|
+| 🌍 Khulna   | 0.000055 kg CO₂ |
+| 🌏 Mandalay | 0.000060 kg CO₂ |
+
+> ⚠️ Compare this to a 2-hour car trip (0.5 kg CO₂): this is ~**4,000x lower**.
+
+### Why so low?
+
+- No field visits, drones, or travel
+- Public satellite data
+- Google Colab uses shared computing
+- Downsampled raster files reduce processing load
+
+> This aligns with sustainable AI goals for **low-carbon machine learning**  
+> (Strubell et al., 2019; Lacoste et al., 2019)
+
+---
+
+# 🎥 Video Overview
 
 A short walkthrough video is included, covering:
-- Code logic
-- NDWI map creation
-- Classification results
-- Environmental discussion
+- NDWI & MNDWI generation
+- K-means clustering implementation
+- Visual comparisons
+- Carbon emission logging
 
 [🔗 Link to video once uploaded]
 
@@ -156,26 +240,29 @@ A short walkthrough video is included, covering:
 
 ---
 
-# License
+# 📜 License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the MIT License. See `LICENSE.txt` for details.
 
 ---
 
-# Contact
+# 👤 Contact
 
-[Your Name]  
-[Your Email]  
+**[Your Name]**  
 University College London  
-GEOL0069 AI4EO
+GEOL0069 – AI4EO  
+[Your Email or GitHub]
 
 ---
 
-# References
+# 📚 References
 
-- McFeeters, S.K. (1996). NDWI for water body mapping.
-- Xu, H. (2006). Modified NDWI.
-- Breiman, L. (2001). Random Forests.
-- Sentinel-2 ESA Documentation: https://sentinel.esa.int/web/sentinel/missions/sentinel-2
+- McFeeters, S.K. (1996). NDWI for delineating open water. *IJRS*
+- Xu, H. (2006). MNDWI for better water separation. *RSE*
+- Jiang et al. (2020). SWI: Red edge + SWIR for water. *Remote Sensing Letters*
+- Zeng et al. (2023). Review on water body detection. *Remote Sensing Reviews*
+- EEA (2023). Average car trip emissions: https://www.eea.europa.eu
+- Strubell et al. (2019). Energy & policy for deep learning. *ACL*
+- Lacoste et al. (2019). Quantifying CO₂ in ML. *MLCO2.org*
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
