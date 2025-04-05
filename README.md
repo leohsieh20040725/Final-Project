@@ -204,28 +204,55 @@ Only bands B03, B05, B08, and B11 were used. Images were downsampled for memory 
 
 ---
 
-# ♻️ Environmental Cost
+# ♻️ Environmental Cost of the Project
 
-This project uses lightweight computation. No GPU, no training, just CPU-based inference + K-means.
+This project prioritizes **sustainable AI practices** by employing a low-energy, cloud-based workflow. The entire flood detection pipeline was executed using lightweight computation—no GPU acceleration, no large model training, and no local infrastructure. Instead, all geospatial analysis and machine learning were carried out using CPU-based operations in **Google Colab**, a platform that leverages shared resources across users.
 
-Emissions were logged using `codecarbon`.
+### 🔍 Carbon Emissions Measured with `codecarbon`
 
-| Region     | Emissions |
-|------------|------------|
-| 🌍 Khulna   | 0.000055 kg CO₂ |
-| 🌏 Mandalay | 0.000060 kg CO₂ |
+The `codecarbon` package was used to estimate emissions during two key processing sessions:
+1. **Khulna, Bangladesh** – a flood-prone deltaic region  
+2. **Mandalay Region, Myanmar** – used as a dry season control region
 
-> ⚠️ Compare this to a 2-hour car trip (0.5 kg CO₂): this is ~**4,000x lower**.
+| 🌍 Location   | CO₂ Emissions (kg) |
+|--------------|---------------------|
+| Khulna       | **0.000055**        |
+| Mandalay     | **0.000060**        |
 
-### Why so low?
+> 🔻 That’s a total of just **0.000115 kg CO₂** — roughly **4,300× less than a 2-hour car trip** (~0.5 kg CO₂) [(EEA, 2023)](https://www.eea.europa.eu).
 
-- No field visits, drones, or travel
-- Public satellite data
-- Google Colab uses shared computing
-- Downsampled raster files reduce processing load
+---
 
-> This aligns with sustainable AI goals for **low-carbon machine learning**  
-> (Strubell et al., 2019; Lacoste et al., 2019)
+### 💡 Why Are Emissions So Low?
+
+- ✅ **No physical fieldwork**: No flights, car trips, or drone surveys  
+- ✅ **Public satellite data**: Sentinel-2 imagery is freely provided by ESA  
+- ✅ **Shared cloud infrastructure**: Google Colab runs on shared GPUs/CPUs  
+- ✅ **Optimized code**: Raster files were downsampled to reduce RAM and CPU load  
+- ✅ **No model training**: K-means clustering is unsupervised and computationally light
+
+---
+
+### 🌱 Reflection on Sustainable AI & Remote Sensing
+
+This project aligns with global goals for **low-carbon artificial intelligence** in environmental monitoring and Earth observation. It demonstrates how **open data + shared computing + efficient algorithms** can dramatically reduce the carbon impact of scientific analysis.
+
+Unlike traditional workflows (field teams, vehicles, high-power GPU servers), this method:
+
+- Enables reproducibility without resource strain
+- Scales to more regions with minimal cost or emissions
+- Encourages ethical AI research practices in the geospatial domain
+
+> _“As AI usage grows in science, carbon efficiency must become a core metric for responsible research.”_  
+> — (Strubell et al., 2019; Lacoste et al., 2019)
+
+---
+
+### 📌 Summary
+
+By embracing **cloud-based tools**, **open satellite data**, and **efficient algorithms**, this project proves that impactful research in flood detection and Earth observation can also be **climate-conscious**.
+
+<p align="right"><a href="#readme-top">🔝 back to top</a></p>
 
 ---
 
