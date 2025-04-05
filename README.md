@@ -3,7 +3,9 @@
 
 <!-- PROJECT BANNER -->
 <!-- Optional if you have a banner -->
-<!-- ![project_banner](https://your-image-link-here) -->
+<!-- ![project_banner](![image](https://github.com/user-attachments/assets/dc204e5e-e36a-44c3-b3aa-8458ab7c9727)
+) -->
+![image](https://github.com/user-attachments/assets/0b8424dd-ce12-4109-bf39-55da3bac5a4b)
 
 <h1 align="center">Flooded Area Classification using Sentinel-2 and NDWI + K-means</h1>
 <p align="center">
