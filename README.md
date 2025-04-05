@@ -130,19 +130,17 @@ These combinations are used to detect water presence, suppress noise from vegeta
 ## 🛰 Remote Sensing Methods
 
 ### NDWI (McFeeters, 1996)
+```math
 
-\[
 NDWI = \frac{Green - NIR}{Green + NIR}
-\]
-
+```
 Highlights water bodies, but can be confused by urban or shadowed regions.
 
 ### MNDWI (Xu, 2006)
+```math
 
-\[
 MNDWI = \frac{Green - SWIR1}{Green + SWIR1 + \epsilon}
-\]
-
+```
 Improves accuracy in built-up or turbid areas by replacing NIR with SWIR.
 ![9899d54a56ca45641a94e5328da6317](https://github.com/user-attachments/assets/45b9ab25-bdb0-4d40-9510-17ae353bc9f5)
 
@@ -169,7 +167,10 @@ It helps compare whether machine learning can match or outperform traditional ND
 4. Run K-means on stacked bands (2D array)
 5. Visualize and compare outputs
 
+
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 ---
 
