@@ -264,7 +264,7 @@ A short walkthrough video is included, covering:
 - Visual comparisons
 - Carbon emission logging
 
-[🔗 Link to video once uploaded]
+[[🔗 Link to video](https://youtu.be/43rczvBAGro)]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -278,10 +278,9 @@ Distributed under the MIT License. See `LICENSE.txt` for details.
 
 # 👤 Contact
 
-**[Your Name]**  
+**[Leo Hsieh]**  
 University College London  
 GEOL0069 – AI4EO  
-[Your Email or GitHub]
 
 ---
 
